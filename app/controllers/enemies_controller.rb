@@ -1,6 +1,7 @@
 class EnemiesController < ApplicationController
-  before_action :authorize
+  before_action :authorize_admin
   before_action :set_enemy, only: [:show, :edit, :update, :destroy]
+
 
   # GET /enemies
   def index
@@ -23,7 +24,6 @@ class EnemiesController < ApplicationController
   # POST /enemies
   def create
     @enemy = Enemy.new(enemy_params)
-
     if @enemy.save
       redirect_to @enemy, notice: 'Enemy was successfully created.'
     else
@@ -54,6 +54,6 @@ class EnemiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def enemy_params
-      params.require(:enemy).permit(:name, :hp, :damage, :location_id)
+      params.require(:enemy).permit(:name, :hp, :damage, :location_id, :enemy_photo)
     end
 end

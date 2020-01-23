@@ -1,5 +1,18 @@
 <p id="notice"><%= notice %></p>
 
+<div class="character">
+  <p>
+    <strong>Name:</strong>
+    <%= @character.name %>
+
+    <strong>Hp:</strong>
+    <%= @character.hp %>
+
+    <strong>Damage:</strong>
+    <%= @character.damage %>
+  </p>
+</div>
+
 <p>
   <strong>Room:</strong>
   <%= @location.room %>
@@ -9,13 +22,54 @@
   <strong>Description:</strong>
   <%= @location.description %>
 </p>
-
-<% doors = @location.door.split(',').map { |d| d.to_i } %>
-<% if doors.length > 0 %>
-  <% doors.each do |door| %>
-    <h3><%= link_to "Door #{door}", location_path(Location.find(door)) %></h3>
+<div class="battle_room">
+  <% if @items.length > 0 %>
+    <h2>Items:</h2>
+    <div class="items">
+      <% @items.each do |item| %>
+        <% if !@character.picked_up.include?(",#{item.id},")%>
+          <h3><%= link_to "#{item.name}", location_path(@location, :grab => item.id) %></h3>
+        <% end %>
+      <% end %>
+    </div>
+  <br>
+  <hr>
+  <br>
   <% end %>
-<% end %>
 
+  <% if @enemies.length > 0 %>
+    <h2>Enemies:</h2>
+    <div class="enemies">
+      <% @enemies.each do |enemy| %>
+        <% current_hp = (@character.get_enemy_hp(enemy.id) != nil) ? @character.get_enemy_hp(enemy.id) : enemy.hp %>
+        <% if current_hp > 0 %>
+          <div class="enemy">
+            <% if enemy.enemy_photo.attached? %>
+              <%= image_tag enemy.enemy_photo %>
+            <% end %>
+
+            <h5><%= "#{enemy.name} - HP: #{current_hp}" %></h5>
+            <%= link_to "ATTACK!", location_path(@location, :attack => enemy.id) %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <br>
+    <hr>
+    <br>
+  <% end %>
+
+  <% doors = @location.door.split(',').map { |d| d.to_i } %>
+    <h2>Doors:</h2>
+    <% if doors.length > 0 %>
+      <% doors.each do |door| %>
+        <h3><%= link_to "Door #{door}", location_path(Location.find(door)) %></h3>
+        <% end %>
+    <br>
+  <% end %>
+</div>
+
+<% if current_user.admin %>
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
+<% end %>

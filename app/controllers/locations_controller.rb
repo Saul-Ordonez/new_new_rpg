@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
-  before_action :authorize, only: [:index, :new, :edit, :create, :update, :destroy]
+  before_action :authorize_admin, only: [:index, :new, :edit, :create, :update, :destroy]
   before_action :set_location, only: [:show, :edit, :update, :destroy]
+  before_action :set_character, only: [:show]
 
   # GET /locations
   def index
@@ -9,8 +10,19 @@ class LocationsController < ApplicationController
 
   # GET /locations/1
   def show
+    if params[:grab]
+      @character.item_grab(params[:grab])
+    end
+    if params[:attack]
+      @character.damage_enemy(params[:attack])
+    end
+    if @character.hp < 1 || params[:id] == '5' || params[:id] == '8'
+      @character.destroy
+      @character = nil
+      render :dead
+    end
     @enemies = Enemy.by_location(params[:id])
-
+    @items = @location.items
   end
 
   # GET /locations/new
@@ -48,13 +60,17 @@ class LocationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_location
-      @location = Location.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_location
+    @location = Location.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def location_params
-      params.require(:location).permit(:room, :description, :door)
-    end
+  def set_character
+    @character = Character.by_user_id(current_user.id)[0]
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def location_params
+    params.require(:location).permit(:room, :description, :door)
+  end
 end

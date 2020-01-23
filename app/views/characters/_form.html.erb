@@ -17,23 +17,27 @@
   </div>
 
   <div class="field">
-    <%= form.label :type %>
-    <%= form.text_field :type %>
+    <p>Low = Soft-Hitting but Armored</p>
+    <p>High = Hard-Hitting but Squishy</p>
+    <%= form.label :strength  %>
+    <%= form.range_field :damage, :min=>2, :max=>10, :class=>"slide", :id=>"damage"%>
   </div>
 
   <div class="field">
-    <%= form.label :hp %>
-    <%= form.number_field :hp %>
+      <%= hidden_field(:character, :user_id, :value => current_user.id) %>
   </div>
 
   <div class="field">
-    <%= form.label :damage %>
-    <%= form.number_field :damage %>
+      <%= hidden_field(:character, :picked_up, :value => 'picked') %>
   </div>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
+      <%= hidden_field(:character, :battled, :value => 'battle') %>
+  </div>
+
+
+  <div class="field">
+    <%= hidden_field(:character, :hp, :value=>'0') %>
   </div>
 
   <div class="actions">

@@ -2,11 +2,10 @@
 
 <h1>Characters</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Type</th>
       <th>Hp</th>
       <th>Damage</th>
       <th>User</th>
@@ -18,7 +17,6 @@
     <% @characters.each do |character| %>
       <tr>
         <td><%= character.name %></td>
-        <td><%= character.type %></td>
         <td><%= character.hp %></td>
         <td><%= character.damage %></td>
         <td><%= character.user_id %></td>

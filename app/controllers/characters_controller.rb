@@ -1,4 +1,6 @@
 class CharactersController < ApplicationController
+  before_action :authorize, only: [:show, :edit, :update, :destroy, :new, :create]
+  before_action :authorize_admin, only: [:index]
   before_action :set_character, only: [:show, :edit, :update, :destroy]
 
   # GET /characters
@@ -7,7 +9,9 @@ class CharactersController < ApplicationController
   end
 
   def home
-
+    if user_signed_in?
+      @character = Character.by_user_id(current_user.id)
+    end
   end
 
   # GET /characters/1
@@ -25,7 +29,9 @@ class CharactersController < ApplicationController
 
   # POST /characters
   def create
-    @character = Character.new(character_params)
+    cp = character_params
+    cp[:hp] =  (12 - character_params[:damage].to_i) * 5
+    @character = Character.new(cp)
 
     if @character.save
       redirect_to @character, notice: 'Character was successfully created.'
@@ -57,6 +63,6 @@ class CharactersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def character_params
-      params.require(:character).permit(:name, :type, :hp, :damage, :user_id)
+      params.require(:character).permit(:name, :type, :hp, :damage, :user_id, :picked_up, :battled)
     end
 end
