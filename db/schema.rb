@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 2020_01_23_184413) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "battled", default: ""
-    t.string "picked_up", default: ""
+    t.string "battled"
+    t.string "picked_up"
   end
 
   create_table "enemies", force: :cascade do |t|

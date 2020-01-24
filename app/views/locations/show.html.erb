@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<div class="battle_room">
 <div class="character">
   <p>
     <strong>Name:</strong>
@@ -22,7 +23,6 @@
   <strong>Description:</strong>
   <%= @location.description %>
 </p>
-<div class="battle_room">
   <% if @items.length > 0 %>
     <h2>Items:</h2>
     <div class="items">
@@ -60,13 +60,17 @@
   <% end %>
 
   <% doors = @location.door.split(',').map { |d| d.to_i } %>
-    <h2>Doors:</h2>
-    <% if doors.length > 0 %>
+    <div class="doors">
+      <% if doors.length > 0 %>
       <% doors.each do |door| %>
+      <div class="door">        
+        <img src="/door.png" alt="door <%= door %>">
         <h3><%= link_to "Door #{door}", location_path(Location.find(door)) %></h3>
-        <% end %>
-    <br>
-  <% end %>
+      </div>
+      <% end %>
+      <% end %>
+    </div>
+  <br>
 </div>
 
 <% if current_user.admin %>

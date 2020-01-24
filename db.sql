@@ -21,6 +21,82 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: Guest
+--
+
+CREATE TABLE public.active_storage_attachments (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    record_type character varying NOT NULL,
+    record_id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.active_storage_attachments OWNER TO "Guest";
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE public.active_storage_attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.active_storage_attachments_id_seq OWNER TO "Guest";
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE public.active_storage_attachments_id_seq OWNED BY public.active_storage_attachments.id;
+
+
+--
+-- Name: active_storage_blobs; Type: TABLE; Schema: public; Owner: Guest
+--
+
+CREATE TABLE public.active_storage_blobs (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    filename character varying NOT NULL,
+    content_type character varying,
+    metadata text,
+    byte_size bigint NOT NULL,
+    checksum character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.active_storage_blobs OWNER TO "Guest";
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE public.active_storage_blobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.active_storage_blobs_id_seq OWNER TO "Guest";
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage_blobs.id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: Guest
 --
 
@@ -46,7 +122,9 @@ CREATE TABLE public.characters (
     damage integer,
     user_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    battled character varying,
+    picked_up character varying
 );
 
 
@@ -239,6 +317,20 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY public.active_storage_attachments ALTER COLUMN id SET DEFAULT nextval('public.active_storage_attachments_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_blobs id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval('public.active_storage_blobs_id_seq'::regclass);
+
+
+--
 -- Name: characters id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
@@ -274,6 +366,39 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Data for Name: active_storage_attachments; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY public.active_storage_attachments (id, name, record_type, record_id, blob_id, created_at) FROM stdin;
+1	enemy_photo	Enemy	1	1	2020-01-24 00:08:12.358474
+2	enemy_photo	Enemy	2	2	2020-01-24 00:08:23.654793
+3	enemy_photo	Enemy	3	3	2020-01-24 00:08:36.373349
+5	enemy_photo	Enemy	5	5	2020-01-24 00:09:48.238293
+6	enemy_photo	Enemy	6	6	2020-01-24 00:10:32.88665
+7	enemy_photo	Enemy	7	7	2020-01-24 00:11:40.991347
+8	enemy_photo	Enemy	8	8	2020-01-24 00:12:18.901232
+9	enemy_photo	Enemy	4	9	2020-01-24 00:13:37.228291
+\.
+
+
+--
+-- Data for Name: active_storage_blobs; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY public.active_storage_blobs (id, key, filename, content_type, metadata, byte_size, checksum, created_at) FROM stdin;
+1	9sXr7TGFrpaK4poz57VZiV6K	space_slug.png	image/png	{"identified":true,"analyzed":true}	58180	wBz3sBhHLvj5wCkTjaR9hA==	2020-01-24 00:08:12.33755
+2	9P9JbHxLrnwWY89LRiqBVwpC	space_slug.png	image/png	{"identified":true,"analyzed":true}	58180	wBz3sBhHLvj5wCkTjaR9hA==	2020-01-24 00:08:23.652758
+3	8FMQ5R4gTEckhRrqx6xJ7c6P	space_rat.png	image/png	{"identified":true,"analyzed":true}	73368	DkFmKfFC1aiY/5tTdtWRfg==	2020-01-24 00:08:36.371438
+4	meRrF99nAhgxwjrYEzNsiijg	bigboi.png	image/png	{"identified":true,"analyzed":true}	7986	ctS77oH6+thigMX8t70xyg==	2020-01-24 00:09:07.533809
+5	yeZt9qfNMAPsor6sM5CX84bR	lilboi.png	image/png	{"identified":true,"analyzed":true}	54427	Q2z2Si1NW8JFnUpFeQ2dyQ==	2020-01-24 00:09:48.192132
+6	K4Rbv1M7GDweQG6iTTtRfNfZ	space_rat.png	image/png	{"identified":true,"analyzed":true}	73368	DkFmKfFC1aiY/5tTdtWRfg==	2020-01-24 00:10:32.840526
+7	zKNqdkBgw7yDWqkz3HvgHGsu	space_rat.png	image/png	{"identified":true,"analyzed":true}	73368	DkFmKfFC1aiY/5tTdtWRfg==	2020-01-24 00:11:40.945603
+8	TdN71mtG7XJM3tgpF7Fi4qEt	space_rat.png	image/png	{"identified":true,"analyzed":true}	73368	DkFmKfFC1aiY/5tTdtWRfg==	2020-01-24 00:12:18.856689
+9	5he4uPCCC52AoZsZiP2VS48t	bigboi.png	image/png	{"identified":true,"analyzed":true}	7986	ctS77oH6+thigMX8t70xyg==	2020-01-24 00:13:37.22558
+\.
+
+
+--
 -- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
@@ -286,7 +411,8 @@ environment	development	2020-01-22 22:21:00.944842	2020-01-22 22:21:00.944842
 -- Data for Name: characters; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY public.characters (id, name, type, hp, damage, user_id, created_at, updated_at) FROM stdin;
+COPY public.characters (id, name, type, hp, damage, user_id, created_at, updated_at, battled, picked_up) FROM stdin;
+1	SadBoi	\N	20	8	1	2020-01-24 00:06:28.866491	2020-01-24 00:06:28.866491	battle	picked
 \.
 
 
@@ -295,9 +421,15 @@ COPY public.characters (id, name, type, hp, damage, user_id, created_at, updated
 --
 
 COPY public.enemies (id, name, hp, damage, location_id, created_at, updated_at) FROM stdin;
-1	Space Slug	3	3	7	2020-01-22 23:58:33.590261	2020-01-22 23:58:33.590261
-2	Space Slug	3	3	7	2020-01-23 00:06:32.620768	2020-01-23 00:06:32.620768
-3	Space Rat	2	1	6	2020-01-23 00:08:25.756377	2020-01-23 00:08:25.756377
+1	Space Slug	3	3	7	2020-01-22 23:58:33.590261	2020-01-24 00:08:12.360521
+2	Space Slug	3	3	7	2020-01-23 00:06:32.620768	2020-01-24 00:08:23.655892
+3	Space Rat	2	1	6	2020-01-23 00:08:25.756377	2020-01-24 00:08:36.374887
+5	lil boi	8	8	9	2020-01-24 00:09:48.236835	2020-01-24 00:09:48.239332
+6	Space Rat	2	1	2	2020-01-24 00:10:32.885404	2020-01-24 00:10:32.887529
+7	Space Rat	2	1	6	2020-01-24 00:11:40.990057	2020-01-24 00:11:40.992421
+8	Space Rat	2	1	6	2020-01-24 00:12:18.900002	2020-01-24 00:12:18.902142
+9	Space Gorilla Ninja Assassin	45	8	13	2020-01-24 00:13:14.195487	2020-01-24 00:13:14.195487
+4	BIG BOI	40	4	10	2020-01-24 00:09:07.57851	2020-01-24 00:13:37.229249
 \.
 
 
@@ -349,6 +481,9 @@ COPY public.schema_migrations (version) FROM stdin;
 20200122180621
 20200122182617
 20200122212553
+20200123183300
+20200123184310
+20200123184413
 \.
 
 
@@ -363,17 +498,31 @@ COPY public.users (id, email, encrypted_password, admin, reset_password_token, r
 
 
 --
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('public.active_storage_attachments_id_seq', 9, true);
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('public.active_storage_blobs_id_seq', 9, true);
+
+
+--
 -- Name: characters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('public.characters_id_seq', 1, false);
+SELECT pg_catalog.setval('public.characters_id_seq', 1, true);
 
 
 --
 -- Name: enemies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('public.enemies_id_seq', 3, true);
+SELECT pg_catalog.setval('public.enemies_id_seq', 9, true);
 
 
 --
@@ -395,6 +544,22 @@ SELECT pg_catalog.setval('public.locations_id_seq', 13, true);
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 2, true);
+
+
+--
+-- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_blobs active_storage_blobs_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY public.active_storage_blobs
+    ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
 
 
 --
@@ -454,6 +619,27 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: Guest
+--
+
+CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storage_attachments USING btree (blob_id);
+
+
+--
+-- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: Guest
+--
+
+CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
+
+
+--
+-- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: Guest
+--
+
+CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
 -- Name: index_enemies_on_location_id; Type: INDEX; Schema: public; Owner: Guest
 --
 
@@ -479,6 +665,14 @@ CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
+
+
+--
+-- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
 
 
 --

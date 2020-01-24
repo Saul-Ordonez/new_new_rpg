@@ -27,7 +27,7 @@ img {
   max-width: 80%;
 }
 
-.enemies, .items {
+.enemies, .items, .doors {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   text-align: center;
