@@ -377,7 +377,7 @@ COPY public.active_storage_attachments (id, name, record_type, record_id, blob_i
 6	enemy_photo	Enemy	6	6	2020-01-24 00:10:32.88665
 7	enemy_photo	Enemy	7	7	2020-01-24 00:11:40.991347
 8	enemy_photo	Enemy	8	8	2020-01-24 00:12:18.901232
-9	enemy_photo	Enemy	4	9	2020-01-24 00:13:37.228291
+10	enemy_photo	Enemy	4	10	2020-01-24 00:22:59.813962
 \.
 
 
@@ -395,6 +395,7 @@ COPY public.active_storage_blobs (id, key, filename, content_type, metadata, byt
 7	zKNqdkBgw7yDWqkz3HvgHGsu	space_rat.png	image/png	{"identified":true,"analyzed":true}	73368	DkFmKfFC1aiY/5tTdtWRfg==	2020-01-24 00:11:40.945603
 8	TdN71mtG7XJM3tgpF7Fi4qEt	space_rat.png	image/png	{"identified":true,"analyzed":true}	73368	DkFmKfFC1aiY/5tTdtWRfg==	2020-01-24 00:12:18.856689
 9	5he4uPCCC52AoZsZiP2VS48t	bigboi.png	image/png	{"identified":true,"analyzed":true}	7986	ctS77oH6+thigMX8t70xyg==	2020-01-24 00:13:37.22558
+10	XxKtRKK91SNHLeBBJByWRZAB	bigboi.png	image/png	{"identified":true,"analyzed":true}	12909	Hi2LCmWQn7pQgKItuGnZ0w==	2020-01-24 00:22:59.810794
 \.
 
 
@@ -429,7 +430,7 @@ COPY public.enemies (id, name, hp, damage, location_id, created_at, updated_at) 
 7	Space Rat	2	1	6	2020-01-24 00:11:40.990057	2020-01-24 00:11:40.992421
 8	Space Rat	2	1	6	2020-01-24 00:12:18.900002	2020-01-24 00:12:18.902142
 9	Space Gorilla Ninja Assassin	45	8	13	2020-01-24 00:13:14.195487	2020-01-24 00:13:14.195487
-4	BIG BOI	40	4	10	2020-01-24 00:09:07.57851	2020-01-24 00:13:37.229249
+4	BIG BOI	40	4	10	2020-01-24 00:09:07.57851	2020-01-24 00:22:59.815178
 \.
 
 
@@ -494,6 +495,7 @@ COPY public.schema_migrations (version) FROM stdin;
 COPY public.users (id, email, encrypted_password, admin, reset_password_token, reset_password_sent_at, remember_created_at, created_at, updated_at) FROM stdin;
 1	admin@admin.com	$2a$11$v3/G0zIuuH2lJYK6UcZfWeFinuGqzQgJMTHBKBXbQ6JyakdD.9avi	t	\N	\N	\N	2020-01-22 22:29:12.106299	2020-01-22 22:29:12.106299
 2	saul@gmail.com	$2a$11$AZuOUB1b3c.SQsbrj87kiuE1IoYYsdj1LqbQUFWKLKtdSpEJNGc46	f	\N	\N	\N	2020-01-22 22:52:49.281744	2020-01-22 22:52:49.281744
+3	calvin@calvin.com	$2a$11$5sy7FI8ldamPwtZpDWPCVOxji/cEyuym4Pr37GWuyRp4jbEEHjSEu	f	\N	\N	\N	2020-01-24 00:27:03.929617	2020-01-24 00:27:03.929617
 \.
 
 
@@ -501,21 +503,21 @@ COPY public.users (id, email, encrypted_password, admin, reset_password_token, r
 -- Name: active_storage_attachments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('public.active_storage_attachments_id_seq', 9, true);
+SELECT pg_catalog.setval('public.active_storage_attachments_id_seq', 10, true);
 
 
 --
 -- Name: active_storage_blobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('public.active_storage_blobs_id_seq', 9, true);
+SELECT pg_catalog.setval('public.active_storage_blobs_id_seq', 10, true);
 
 
 --
 -- Name: characters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('public.characters_id_seq', 1, true);
+SELECT pg_catalog.setval('public.characters_id_seq', 5, true);
 
 
 --
@@ -543,7 +545,7 @@ SELECT pg_catalog.setval('public.locations_id_seq', 13, true);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 2, true);
+SELECT pg_catalog.setval('public.users_id_seq', 3, true);
 
 
 --
